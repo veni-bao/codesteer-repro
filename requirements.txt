@@ -1,0 +1,13 @@
+torch>=2.0.0
+transformers>=4.40.0
+accelerate>=0.27.0
+bitsandbytes>=0.41.0        # optional, for 4/8-bit quantization
+openai>=1.12.0
+anthropic>=0.20.0           # optional, for Claude
+pyyaml>=6.0
+tqdm>=4.66.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+pandas>=2.0.0
+sympy>=1.12                 # used in symbolic checker
