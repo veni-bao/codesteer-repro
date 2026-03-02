@@ -1,0 +1,47 @@
+# ===== TaskLLM (the model that solves tasks) =====
+task_llm:
+  provider: openai          # options: openai | minimax | anthropic | local
+  model: gpt-4o             # model name
+  api_key: "YOUR_API_KEY_HERE"
+  base_url: ""              # leave empty for OpenAI default; set for MiniMax/custom
+
+  # MiniMax example:
+  # provider: minimax
+  # model: MiniMax-Text-01
+  # api_key: "YOUR_MINIMAX_KEY"
+  # base_url: "https://api.minimax.chat/v1"
+
+  # Local example (vLLM):
+  # provider: openai
+  # model: meta-llama/Llama-3.1-70B-Instruct
+  # api_key: "none"
+  # base_url: "http://localhost:8000/v1"
+
+# ===== CodeSteerLLM (the 8B guide model) =====
+codesteer_llm:
+  mode: local               # options: local | api
+  # local: load HuggingFace model on your GPU
+  # api:   call a hosted version via OpenAI-compatible API
+
+  # Local mode settings:
+  hf_model: "yongchao98/CodeSteer-v1.0"
+  device: "cuda"            # cuda | cpu | mps
+  quantize: null            # null | 4bit | 8bit  (requires bitsandbytes)
+  max_memory: null          # e.g. {"0": "14GiB"} to limit GPU memory
+
+  # API mode settings (if mode: api):
+  api_key: "YOUR_API_KEY_HERE"
+  base_url: "http://your-vllm-server/v1"
+  model: "CodeSteer-v1.0"
+
+# ===== Evaluation settings =====
+eval:
+  max_turns: 5              # max CodeSteer guidance turns per sample
+  code_timeout: 30          # seconds before code execution is killed
+  temperature: 0.0          # TaskLLM temperature
+  steer_temperature: 0.7    # CodeSteerLLM temperature
+
+# ===== Logging =====
+logging:
+  level: INFO
+  save_trajectories: true   # save full multi-turn trajectories to results/
